@@ -15,6 +15,7 @@ function App() {
   const [photos, setPhotos] = useState(null)
 
   async function search() {
+    debugger
     const texArr = inputValue.split(' ');
     let newDate = [];
     for (let i = 0; i < texArr.length; i++) {
@@ -46,18 +47,20 @@ function App() {
       {photos && (<div className='imgList'>
         {
           Object.keys(photos).map((item, ind, keysArr) => {
-            return <>
-              {photos[item].map((itm, index) => (<>
+            return <span key={ind}>
+              {photos[item].map((itm, index) => (<span key={itm.id}>
                 <img draggable="true" alt={item} className='photos' key={itm.id} src={`https://live.staticflickr.com/${itm.server}/${itm.id}_${itm.secret}.jpg`} width="200" height="200" />
                 {index === photos[item].length - 1 && ind === keysArr.length - 1 && (
+                  
                   <div className='dropBlocks'>
+                    {console.log({keysArr},{photos},  photos[item] )}
                  { keysArr.map((item) => (
-                    <div name={item} className="dropBlock">{item}</div>
+                    <div key={item} name={item} className="dropBlock">{item}</div>
                   ))}
                   </div>
                 )}
-              </>))}
-            </>
+              </span>))}
+            </span>
           })
         }
       </div>)}
